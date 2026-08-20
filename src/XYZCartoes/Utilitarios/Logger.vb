@@ -2,7 +2,9 @@ Imports System.IO
 
 Namespace Utilitarios
 
-    ''' <summary>Log de erros técnicos em arquivo de texto, um por dia, em Logs\ ao lado do executável.</summary>
+    ''' <summary>
+    ''' >Log de erros técnicos em arquivo de texto, um por dia, em Logs\ ao lado do executável.
+    ''' </summary>
     Public NotInheritable Class Logger
 
         Private Shared ReadOnly TravaEscrita As New Object()
@@ -24,6 +26,12 @@ Namespace Utilitarios
             RegistrarLinha("AVISO", contexto, mensagem)
         End Sub
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="nivel"></param>
+        ''' <param name="contexto"></param>
+        ''' <param name="detalhe"></param>
         Private Shared Sub RegistrarLinha(nivel As String, contexto As String, detalhe As String)
             Try
                 SyncLock TravaEscrita
@@ -38,7 +46,7 @@ Namespace Utilitarios
                     File.AppendAllText(caminhoArquivo, linha)
                 End SyncLock
             Catch
-                ' Falha ao gravar log não pode derrubar a aplicação nem virar um novo erro para o usuário.
+                ' Se falhar ao gravar log não derruba aplicacao nem virar um novo erro para o usuário.
             End Try
         End Sub
 

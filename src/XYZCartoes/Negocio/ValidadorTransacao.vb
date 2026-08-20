@@ -5,6 +5,11 @@ Namespace Negocio
 
     Public Module ValidadorTransacao
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="transacao"></param>
+        ''' <returns></returns>
         Public Function Validar(transacao As Transacao) As List(Of String)
             Dim erros As New List(Of String)
 
@@ -23,22 +28,41 @@ Namespace Negocio
             Return erros
         End Function
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="numeroCartao"></param>
+        ''' <returns></returns>
         Public Function ValidarNumeroCartao(numeroCartao As String) As Boolean
             Return Not String.IsNullOrEmpty(numeroCartao) AndAlso
                    numeroCartao.Length = 16 AndAlso
                    numeroCartao.All(AddressOf Char.IsDigit)
         End Function
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="valor"></param>
+        ''' <returns></returns>
         Public Function ValidarValor(valor As Decimal) As Boolean
             Return valor > 0D
         End Function
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="descricao"></param>
+        ''' <returns></returns>
         Public Function ValidarDescricao(descricao As String) As Boolean
             Return descricao Is Nothing OrElse descricao.Length <= 255
         End Function
 
-        ''' <summary>Checksum mod 10 (algoritmo de Luhn) usado por bandeiras de cartão para detectar erro de
-        ''' digitação. É uma checagem à parte, opcional — não bloqueia o cadastro/edição da transação.</summary>
+        ''' <summary>
+        ''' Checksum mod 10 (algoritmo de Luhn) usado por bandeiras de cartão para detectar erro de
+        ''' digitação. É uma checagem à parte, opcional — não bloqueia o cadastro/edição da transação.
+        ''' </summary>
+        ''' <param name="numeroCartao"></param>
+        ''' <returns></returns>
         Public Function ValidarLuhn(numeroCartao As String) As Boolean
             If Not ValidarNumeroCartao(numeroCartao) Then Return False
 

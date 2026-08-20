@@ -5,6 +5,11 @@ Namespace Utilitarios
 
     Public Module ExportadorExcelService
 
+        ''' <summary>
+        '''
+        ''' </summary>
+        ''' <param name="transacoes"></param>
+        ''' <param name="caminhoArquivo"></param>
         Public Sub Exportar(transacoes As List(Of Transacao), caminhoArquivo As String)
             Using pasta As New XLWorkbook()
                 Dim planilha = pasta.Worksheets.Add("Transações")
