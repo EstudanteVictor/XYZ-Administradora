@@ -117,4 +117,4 @@ O enunciado do desafio deixa alguns pontos em aberto. As decisões abaixo foram 
 
 ## Relatório Excel de exemplo
 
-`sample-output/Transacoes_UltimoMes_exemplo.xlsx` foi gerado executando a exportação real da aplicação contra a massa de dados de teste (`05_dados_exemplo.sql`), refletindo exatamente o formato e a formatação (mascaramento de cartão, moeda, data) que o botão **Exportar Último Mês** produz.
+Arquivo de exemplo gerado na pasta: sample-output
