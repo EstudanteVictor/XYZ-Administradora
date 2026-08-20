@@ -1,0 +1,24 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+
+# Visual Studio
+.vs/
+*.userprefs
+
+# Logs gerados em runtime pela aplicação
+src/XYZCartoes/Logs/
+
+# NuGet (usamos PackageReference, não versionamos pacotes restaurados)
+packages/
+*.nupkg
+
+# Arquivos de banco de dados locais, se algum dia forem gerados
+*.mdf
+*.ldf
+*.ndf
+
+# Materiais de apoio pessoal (PDFs de estudo, áudio narrado) — não são entregáveis do desafio
+docs/
