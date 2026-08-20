@@ -1,7 +1,5 @@
 # XYZ Administradora de Cartões de Crédito
 
-Sistema de cadastro e gerenciamento de transações de cartão de crédito, desenvolvido como resposta ao desafio técnico de Desenvolvedor(a) Pleno (VB.NET + SQL Server).
-
 ## Visão geral
 
 - **Aplicação desktop**: VB.NET WinForms, .NET Framework 4.8, um único projeto organizado em pastas por camada (`Dominio`, `Dados`, `Negocio`, `Utilitarios`, `Forms`).
