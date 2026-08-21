@@ -283,6 +283,16 @@ Namespace Forms
         End Sub
 
         Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
+            EditarTransacaoSelecionada()
+        End Sub
+
+        ''' <summary>Duplo clique numa linha de dados edita a transação daquela linha, sem precisar do botão Editar.</summary>
+        Private Sub dgvTransacoes_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTransacoes.CellDoubleClick
+            If e.RowIndex < 0 Then Return
+            EditarTransacaoSelecionada()
+        End Sub
+
+        Private Sub EditarTransacaoSelecionada()
             Dim transacaoSelecionada As Transacao = ObterTransacaoSelecionada()
             If transacaoSelecionada Is Nothing Then
                 MessageBox.Show("Selecione uma transação na lista para editar.", "Nenhuma transação selecionada",
