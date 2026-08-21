@@ -1,7 +1,5 @@
 # XYZ Administradora de Cartões de Crédito
 
-Sistema de cadastro e gerenciamento de transações de cartão de crédito, desenvolvido como resposta ao desafio técnico de Desenvolvedor(a) Pleno (VB.NET + SQL Server).
-
 ## Visão geral
 
 - **Aplicação desktop**: VB.NET WinForms, .NET Framework 4.8, um único projeto organizado em pastas por camada (`Dominio`, `Dados`, `Negocio`, `Utilitarios`, `Forms`).
@@ -119,4 +117,4 @@ O enunciado do desafio deixa alguns pontos em aberto. As decisões abaixo foram 
 
 ## Relatório Excel de exemplo
 
-`sample-output/Transacoes_UltimoMes_exemplo.xlsx` foi gerado executando a exportação real da aplicação contra a massa de dados de teste (`05_dados_exemplo.sql`), refletindo exatamente o formato e a formatação (mascaramento de cartão, moeda, data) que o botão **Exportar Último Mês** produz.
+Arquivo de exemplo gerado na pasta: sample-output
