@@ -26,10 +26,9 @@ xyz-cartoes-credito/
 │   ├── 02_stored_procedures.sql
 │   ├── 03_functions.sql
 │   ├── 04_view.sql
-│   ├── 05_dados_exemplo.sql
-│   └── 06_testes_validacao.sql
+│   └── 05_dados_exemplo.sql
 └── sample-output/
-    └── Transacoes_UltimoMes_exemplo.xlsx
+    └── Transacoes_UltimoMes_*.xlsx
 ```
 
 ## Pré-requisitos
@@ -47,7 +46,6 @@ Execute os scripts em `database/` **nesta ordem**, contra a instância desejada 
 3. `02_stored_procedures.sql` — CRUD, consulta paginada e totais por período.
 4. `03_functions.sql` — `fn_CategoriaTransacao` (scalar) e `fn_TransacoesCategorizadas` (TVF inline).
 5. `04_view.sql` — `vw_ConsolidadoFinanceiro`.
-6. `06_testes_validacao.sql` — roteiro manual que exercita cada objeto criado (opcional, mas recomendado para validar a instalação).
 
 Pode rodar via SSMS (abrir e executar cada arquivo) ou via `sqlcmd`:
 
@@ -57,7 +55,6 @@ sqlcmd -S "(localdb)\MSSQLLocalDB" -i database\05_dados_exemplo.sql
 sqlcmd -S "(localdb)\MSSQLLocalDB" -i database\02_stored_procedures.sql
 sqlcmd -S "(localdb)\MSSQLLocalDB" -i database\03_functions.sql
 sqlcmd -S "(localdb)\MSSQLLocalDB" -i database\04_view.sql
-sqlcmd -S "(localdb)\MSSQLLocalDB" -i database\06_testes_validacao.sql
 ```
 
 Os scripts são salvos com BOM UTF-8 para que tanto o SSMS quanto o `sqlcmd` reconheçam automaticamente a acentuação (mensagens de erro, "Média", etc.) sem precisar de flags extras.
