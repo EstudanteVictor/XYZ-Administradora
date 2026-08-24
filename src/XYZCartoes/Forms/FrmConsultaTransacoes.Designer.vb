@@ -67,6 +67,7 @@ Namespace Forms
             Me.lblId = New System.Windows.Forms.Label()
             Me.cboCategoriaFiltro = New System.Windows.Forms.ComboBox()
             Me.lblCategoriaFiltro = New System.Windows.Forms.Label()
+            Me.chkMascararCartao = New System.Windows.Forms.CheckBox()
             CType(Me.dgvTransacoes, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.pnlPaginacao.SuspendLayout()
             Me.pnlAcoes.SuspendLayout()
@@ -438,7 +439,7 @@ Namespace Forms
             'txtNumeroCartao
             '
             Me.txtNumeroCartao.Location = New System.Drawing.Point(168, 6)
-            Me.txtNumeroCartao.MaxLength = 16
+            Me.txtNumeroCartao.MaxLength = 19
             Me.txtNumeroCartao.Name = "txtNumeroCartao"
             Me.txtNumeroCartao.Size = New System.Drawing.Size(140, 20)
             Me.txtNumeroCartao.TabIndex = 1
@@ -467,16 +468,31 @@ Namespace Forms
             Me.lblId.TabIndex = 15
             Me.lblId.Text = "Id:"
             '
+            'chkMascararCartao
+            '
+            Me.chkMascararCartao.Checked = True
+            Me.chkMascararCartao.CheckState = System.Windows.Forms.CheckState.Checked
+            Me.chkMascararCartao.Dock = System.Windows.Forms.DockStyle.Top
+            Me.chkMascararCartao.Location = New System.Drawing.Point(0, 0)
+            Me.chkMascararCartao.Name = "chkMascararCartao"
+            Me.chkMascararCartao.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+            Me.chkMascararCartao.Size = New System.Drawing.Size(1050, 26)
+            Me.chkMascararCartao.TabIndex = 20
+            Me.chkMascararCartao.Text = "Mascarar número do cartão"
+            Me.chkMascararCartao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+            Me.chkMascararCartao.UseVisualStyleBackColor = True
+            '
             'FrmConsultaTransacoes
             '
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
             Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-            Me.ClientSize = New System.Drawing.Size(1050, 680)
+            Me.ClientSize = New System.Drawing.Size(1050, 706)
             Me.Controls.Add(Me.dgvTransacoes)
             Me.Controls.Add(Me.pnlPaginacao)
             Me.Controls.Add(Me.pnlAcoes)
             Me.Controls.Add(Me.pnlFiltros)
-            Me.MinimumSize = New System.Drawing.Size(1030, 500)
+            Me.Controls.Add(Me.chkMascararCartao)
+            Me.MinimumSize = New System.Drawing.Size(1030, 526)
             Me.Name = "FrmConsultaTransacoes"
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
             Me.Text = "XYZ Administradora de Cartões de Crédito - Transações"
@@ -529,6 +545,7 @@ Namespace Forms
         Friend WithEvents btnUltima As System.Windows.Forms.Button
         Friend WithEvents lblTamanho As System.Windows.Forms.Label
         Friend WithEvents cboTamanhoPagina As System.Windows.Forms.ComboBox
+        Friend WithEvents chkMascararCartao As System.Windows.Forms.CheckBox
 
     End Class
 

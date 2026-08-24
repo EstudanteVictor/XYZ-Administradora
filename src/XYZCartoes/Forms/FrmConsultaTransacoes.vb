@@ -14,6 +14,7 @@ Namespace Forms
         Private _layoutPronto As Boolean = False
         Private _ordenarPor As String = "Data_Transacao"
         Private _ordenarDirecao As String = "DESC"
+        Private _formatandoTextoCartao As Boolean = False
 
         Public Sub New()
             InitializeComponent()
@@ -62,9 +63,11 @@ Namespace Forms
 
         Private Sub CarregarPagina()
             Try
+                Dim digitosCartao As String = FormatadorCartao.ExtrairDigitos(txtNumeroCartao.Text)
+
                 Dim filtro As New FiltroConsultaTransacoes With {
                     .Id = ParseIntOuNulo(txtId.Text),
-                    .NumeroCartao = If(txtNumeroCartao.Text.Trim().Length = 16, txtNumeroCartao.Text.Trim(), Nothing),
+                    .NumeroCartao = If(digitosCartao.Length = 16, digitosCartao, Nothing),
                     .DataInicial = If(chkDataInicial.Checked, CType(dtpDataInicial.Value.Date, Date?), Nothing),
                     .DataFinal = If(chkDataFinal.Checked, CType(dtpDataFinal.Value.Date.AddDays(1).AddSeconds(-1), Date?), Nothing),
                     .ValorMinimo = ParseDecimalOuNulo(txtValorMinimo.Text),
@@ -158,6 +161,42 @@ Namespace Forms
             End If
         End Sub
 
+        ''' <summary>Reformata o campo em blocos de 4 dígitos (ex.: "4000 0000 0000 0042") a cada tecla,
+        ''' mantendo o cursor na mesma posição relativa aos dígitos. Só a exibição muda — a busca em
+        ''' CarregarPagina extrai os dígitos puros do texto antes de montar o filtro.</summary>
+        Private Sub txtNumeroCartao_TextChanged(sender As Object, e As EventArgs) Handles txtNumeroCartao.TextChanged
+            If _formatandoTextoCartao Then Return
+
+            Dim posicaoCursorAtual As Integer = Math.Min(txtNumeroCartao.SelectionStart, txtNumeroCartao.Text.Length)
+            Dim digitosAntesDoCursor As Integer = FormatadorCartao.ExtrairDigitos(
+                txtNumeroCartao.Text.Substring(0, posicaoCursorAtual)).Length
+
+            Dim digitos As String = FormatadorCartao.ExtrairDigitos(txtNumeroCartao.Text)
+            If digitos.Length > 16 Then digitos = digitos.Substring(0, 16)
+
+            Dim textoFormatado As String = FormatadorCartao.Formatar(digitos)
+
+            _formatandoTextoCartao = True
+            txtNumeroCartao.Text = textoFormatado
+            txtNumeroCartao.SelectionStart = PosicaoAposDigitos(textoFormatado, digitosAntesDoCursor)
+            _formatandoTextoCartao = False
+        End Sub
+
+        ''' <summary>Encontra, no texto já formatado (com espaços), a posição do cursor logo após o
+        ''' n-ésimo dígito — usado para o cursor não "pular" quando um espaço é inserido/removido.</summary>
+        Private Shared Function PosicaoAposDigitos(textoFormatado As String, n As Integer) As Integer
+            If n <= 0 Then Return 0
+
+            Dim contagem As Integer = 0
+            For i As Integer = 0 To textoFormatado.Length - 1
+                If Char.IsDigit(textoFormatado(i)) Then
+                    contagem += 1
+                    If contagem = n Then Return i + 1
+                End If
+            Next
+            Return textoFormatado.Length
+        End Function
+
         Private Sub txtId_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtId.KeyPress
             If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) Then
                 e.Handled = True
@@ -198,12 +237,20 @@ Namespace Forms
 
         Private Sub dgvTransacoes_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvTransacoes.CellFormatting
             If dgvTransacoes.Columns(e.ColumnIndex).Name = "colCartao" AndAlso e.Value IsNot Nothing Then
-                e.Value = FormatadorCartao.Mascarar(CStr(e.Value))
+                e.Value = If(chkMascararCartao.Checked,
+                             FormatadorCartao.Mascarar(CStr(e.Value)),
+                             FormatadorCartao.Formatar(CStr(e.Value)))
                 e.FormattingApplied = True
             ElseIf dgvTransacoes.Columns(e.ColumnIndex).Name = "colCategoria" AndAlso TypeOf e.Value Is Categoria Then
                 e.Value = CategoriaConversor.ParaTexto(CType(e.Value, Categoria))
                 e.FormattingApplied = True
             End If
+        End Sub
+
+        ''' <summary>Alterna a máscara do número do cartão sem refazer a consulta — só reformata a
+        ''' coluna já carregada na grid.</summary>
+        Private Sub chkMascararCartao_CheckedChanged(sender As Object, e As EventArgs) Handles chkMascararCartao.CheckedChanged
+            dgvTransacoes.InvalidateColumn(colCartao.Index)
         End Sub
 
         Private Sub dgvTransacoes_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvTransacoes.DataBindingComplete
